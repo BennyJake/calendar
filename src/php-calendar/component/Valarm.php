@@ -9,6 +9,6 @@
 namespace phpCalendar\component;
 
 
-class Valarm {
+class Valarm extends Vcomponent{
 
 } 

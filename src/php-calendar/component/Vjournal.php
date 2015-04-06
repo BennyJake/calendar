@@ -8,11 +8,13 @@
 
 namespace phpCalendar\component;
 
-require 'Vcomponent.php';
-
+require 'util/Vcomponent.php';
+require 'util/VcomponentTrait.php';
 //Resource: http://en.wikipedia.org/wiki/ICalendar#Journal_entry_.28VJOURNAL.29
 
 class Vjournal extends  Vcomponent{
+
+    use \VcomponentTrait;
 
     private $componentType = 'VJOURNAL';
 
@@ -27,9 +29,4 @@ class Vjournal extends  Vcomponent{
             'required' => TRUE,'value' => ''),
     );
 
-    public function __construct(){
-        parent::__construct();
-        $this->component = array_merge(parent::getAttributes(),$this->component);
-        return $this;
-    }
 }

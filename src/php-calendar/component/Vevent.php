@@ -9,7 +9,7 @@
 namespace phpCalendar\component;
 
 
-class Vevent {
+class Vevent extends Vcomponent{
 
     private $DTSTART;
     private $DTEND;

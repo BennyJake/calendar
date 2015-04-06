@@ -9,8 +9,7 @@
 namespace phpCalendar\component;
 
 
-class Vtimezone
-{
+class Vtimezone extends Vcomponent{
 
     private $component = array(
         'BEGIN' => array(

@@ -36,6 +36,7 @@ class Calendar {
     public function __construct(){
 
         $this->component_factory = new ComponentFactory();
+
         return $this;
     }
 
@@ -45,6 +46,8 @@ class Calendar {
     public function setCalendar($calendar)
     {
         $this->calendar = $calendar;
+
+        return $this;
     }
 
     /**
@@ -52,7 +55,7 @@ class Calendar {
      */
     public function getCalendar()
     {
-        return $this->calendar;
+        return $this;
     }
 
     public function __set($name, $value)
@@ -70,6 +73,7 @@ class Calendar {
 
         $component = $this->component_factory->buildComponent($name,$settings);
         $this->calendar_components[] = $component;
+
         return $this;
     }
 

@@ -9,7 +9,7 @@
 namespace phpCalendar\component;
 
 
-class Vtodo {
+class Vtodo extends Vcomponent{
 
     private $SEQUENCE;
     private $UID;

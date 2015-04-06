@@ -9,6 +9,6 @@
 namespace phpCalendar\component;
 
 
-class Vfreebusy {
+class Vfreebusy extends Vcomponent{
 
 } 
