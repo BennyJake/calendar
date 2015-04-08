@@ -12,6 +12,7 @@ use phpCalendar\component\Vcomponent;
 use phpCalendar\component\Vjournal as Vjournal;
 use phpCalendar\component\Vcalendar as Vcalendar;
 
+require_once 'component/Vwrapper.php';
 require_once 'component/Vjournal.php';
 require_once 'component/Vcalendar.php';
 
@@ -20,6 +21,7 @@ class Parser {
     private $calendar;
 
     private $content;
+    private $content_two;
     private $counter;
 
     private $keyword_list = array(
@@ -44,7 +46,7 @@ class Parser {
 
         $counter = -1;
 
-        $this->content = $this->object($counter);
+        $this->content = $this->object2($counter,'Vwrapper');
 
         echo '<pre>';
         var_dump($this->content);
@@ -53,55 +55,36 @@ class Parser {
         return $this;
     }
 
-    private function to_object($content){
+    private function object2(&$counter,$vcomponentName){
 
-        $begin_tag_array = array();
-        $end_tag_array = array();
-
-        $counter = 0;
-
-        foreach($content as $key => $value){
-            if($value['name'] == 'BEGIN'){
-                $begin_tag_array[] = $counter;
-            }
-            elseif($value['name'] == 'END'){
-                $end_tag_array[] = $counter;
-            }
-            $counter++;
-        }
-
-        if(count($begin_tag_array) != count($end_tag_array)){
-            return NULL;
-        }
-
-        asort($begin_tag_array);
-        asort($end_tag_array);
-
-        $outter_array = array();
-
-        $result = $this->nest($outter_array,$begin_tag_array,$end_tag_array);
-
-
-
-        echo '<pre>';
-        var_dump($result);
-        echo '<hr/>';
-        var_dump($begin_tag_array);
-        echo '<hr/>';
-        var_dump($end_tag_array);
-        echo '</pre>';
-
-    }
-
-    private function object(&$counter){
-
-        $vcomponent = NULL;
+        $className = "phpCalendar\\component\\".$vcomponentName;
+        $vcomponent = new $className;
 
         for(;$counter + 1 < sizeof($this->content);){
 
             $counter++;
+            echo $counter.' '.$this->content[$counter]['value'].'<br/>';
+            if($this->content[$counter]['name'] == 'BEGIN'){
 
+                $new_vcomponent = $this->object2($counter,ucfirst(strtolower(trim($this->content[$counter]['value']))));
+                $vcomponent->addComponent($new_vcomponent);
+            }
+            elseif($this->content[$counter]['name'] == 'END'){
+                break;
+            }
+            else{
+                $vcomponent->addAttributes(array($this->content[$counter]['name'] => $this->content[$counter]['value']));
+            }
+        }
 
+        return $vcomponent;
+    }
+
+    private function object(&$counter,Vcomponent $vcomponent = NULL){
+
+        for(;$counter + 1 < sizeof($this->content);){
+
+            $counter++;
 
             if($this->content[$counter]['name'] == 'BEGIN'){
 
@@ -120,6 +103,11 @@ class Parser {
             elseif($this->content[$counter]['name'] == 'END'){
                 echo 'Counter-End: '.$counter.'<br/>';
                 break;
+            }
+            else{
+                if(isset($new_vcomponent)) {
+                    $vcomponent->addAttributes(array($this->content[$counter]['name'] => $this->content[$counter]['value']));
+                }
             }
         }
 
