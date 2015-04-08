@@ -8,9 +8,7 @@
 
 namespace phpCalendar;
 
-use phpCalendar\component\Vcomponent;
-
-require 'ComponentFactory.php';
+require_once 'ComponentFactory.php';
 
 class Calendar {
 
