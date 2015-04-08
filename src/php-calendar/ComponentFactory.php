@@ -11,8 +11,8 @@ namespace phpCalendar;
 use phpCalendar\component\Vjournal;
 use phpCalendar\component\Vcalendar;
 
-require 'component/Vjournal.php';
-require 'component/Vcalendar.php';
+require_once 'component/Vjournal.php';
+require_once 'component/Vcalendar.php';
 
 class ComponentFactory {
 

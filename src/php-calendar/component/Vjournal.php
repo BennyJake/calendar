@@ -8,15 +8,12 @@
 
 namespace phpCalendar\component;
 
-require 'util/Vcomponent.php';
-require 'util/VcomponentTrait.php';
+require_once 'util/Vcomponent.php';
 //Resource: http://en.wikipedia.org/wiki/ICalendar#Journal_entry_.28VJOURNAL.29
 
 class Vjournal extends  Vcomponent{
 
-    use \VcomponentTrait;
-
-    private $componentType = 'VJOURNAL';
+    protected $componentType = 'VJOURNAL';
 
     private $component = array(
         'STATUS' => array(

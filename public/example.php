@@ -10,8 +10,11 @@ require_once('../src/php-calendar/Calendar.php');
 require_once('../src/php-calendar/Parser.php');
 
 $factory = new \phpCalendar\ComponentFactory();
-$calendar = $factory->buildComponent('VCALENDAR');
-$journal = $calendar->addComponent('vjournal',array('UID'=>'1234'))->getComponentByUid('1234');
+$vcalendar = $factory->buildComponent('VCALENDAR');
+$vjournal = $factory->buildComponent('VJOURNAL',array('UID'=>'1234'));
+$vcalendar->addComponent($vjournal);
+echo $vcalendar->getComponentType();
+echo $vjournal->getComponentType();
 $parser = new \phpCalendar\Parser("BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//ABC Corporation//NONSGML My Product//EN
