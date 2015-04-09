@@ -28,25 +28,7 @@ class Vcomponent {
 
         $this->childComponent = array();
 
-        $child = is_subclass_of($this,'Vcomponent');
-
-        //combine parent/child/passed component settings
-        if($child) {
-            if(isset($settings)){
-                $this->component = array_replace_recursive(parent::getAttributes(), $this->getAttributes(), $settings);
-            }
-            else{
-                $this->component = array_replace_recursive(parent::getAttributes(), $this->getAttributes());
-            }
-        }
-        else{
-            if(isset($settings)) {
-                $this->component = array_replace_recursive($this->getAttributes(), $settings);
-            }
-            else{
-                //nothing changes...
-            }
-        }
+        $this->addAttributes($settings);
 
         return $this;
     }
@@ -66,6 +48,29 @@ class Vcomponent {
     public function getAttributes(){
         //return all relevant private variables
         return $this->component;
+    }
+
+    public function addAttributes($settings = NULL){
+
+        $child = is_subclass_of($this,'Vcomponent');
+
+        //combine parent/child/passed component settings
+        if($child) {
+            if(isset($settings)){
+                $this->component = array_replace_recursive(parent::getAttributes(), $this->getAttributes(), $settings);
+            }
+            else{
+                $this->component = array_replace_recursive(parent::getAttributes(), $this->getAttributes());
+            }
+        }
+        else{
+            if(isset($settings)) {
+                $this->component = array_replace_recursive($this->getAttributes(), $settings);
+            }
+            else{
+                //nothing changes...
+            }
+        }
     }
 
     public function addComponent(Vcomponent $component){
