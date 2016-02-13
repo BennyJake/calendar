@@ -8,9 +8,8 @@
 
 namespace phpCalendar\component;
 
+require_once 'Base/Vcomponent.php';
 
 class Vevent extends Vcomponent{
 
-    private $DTSTART;
-    private $DTEND;
 } 

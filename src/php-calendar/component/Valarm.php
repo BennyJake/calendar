@@ -8,6 +8,7 @@
 
 namespace phpCalendar\component;
 
+require_once 'Base/Vcomponent.php';
 
 class Valarm extends Vcomponent{
 

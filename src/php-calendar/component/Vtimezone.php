@@ -8,34 +8,9 @@
 
 namespace phpCalendar\component;
 
+require_once 'Base/Vcomponent.php';
 
 class Vtimezone extends Vcomponent{
 
-    private $component = array(
-        'BEGIN' => array(
-            'required' => TRUE, 'value' => 'VTIMEZONE'
-        ),
-        'TZID' => array(
-            'required' => TRUE, 'value' => 'VTIMEZONE'
-        ),
-        'LAST-MOD' => array(
-            'required' => FALSE, 'value' => 'VTIMEZONE'
-        ),
-        'TZURL' => array(
-            'required' => FALSE, 'value' => 'VTIMEZONE'
-        ),
-        'BEGIN' => array(
-            'required' => TRUE, 'value' => 'VTIMEZONE'
-        ),
-        'BEGIN' => array(
-            'required' => TRUE, 'value' => 'VTIMEZONE'
-        ),
-        'BEGIN' => array(
-            'required' => TRUE, 'value' => 'VTIMEZONE'
-        ),
-        'BEGIN' => array(
-            'required' => TRUE, 'value' => 'VTIMEZONE'
-        ),
-    );
 
 } 

@@ -8,16 +8,8 @@
 
 namespace phpCalendar\component;
 
+require_once 'Base/Vcomponent.php';
 
 class Vtodo extends Vcomponent{
-
-    private $SEQUENCE;
-    private $UID;
-    private $ACTION;
-    private $TRIGGER;
-    private $ATTACH;
-    private $REPEAT;
-    private $DURATION;
-
 
 } 
