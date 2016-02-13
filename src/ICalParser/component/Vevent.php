@@ -3,13 +3,13 @@
  * Created by PhpStorm.
  * User: Ben
  * Date: 11/17/2014
- * Time: 5:54 PM
+ * Time: 5:53 PM
  */
 
-namespace phpCalendar\component;
+namespace ICalParser\component;
 
 require_once 'Base/Vcomponent.php';
 
-class Vtodo extends Vcomponent{
+class Vevent extends Vcomponent{
 
 } 

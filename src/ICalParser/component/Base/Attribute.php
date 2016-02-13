@@ -6,7 +6,7 @@
  * Time: 10:13 PM
  */
 
-namespace phpCalendar\Component\Base;
+namespace ICalParser\Component\Base;
 
 
 class Attribute

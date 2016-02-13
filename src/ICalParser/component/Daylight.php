@@ -6,7 +6,7 @@
  * Time: 9:41 PM
  */
 
-namespace phpCalendar\component;
+namespace ICalParser\component;
 
 require_once 'Base/Vcomponent.php';
 

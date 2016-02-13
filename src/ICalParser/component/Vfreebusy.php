@@ -6,7 +6,7 @@
  * Time: 5:55 PM
  */
 
-namespace phpCalendar\component;
+namespace ICalParser\component;
 
 class Vfreebusy extends Vcomponent{
 

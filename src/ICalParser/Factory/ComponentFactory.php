@@ -6,11 +6,11 @@
  * Time: 6:27 PM
  */
 
-namespace PhpCalendar/Factory;
+namespace ICalParser\Factory;
 
 use Composer\Factory;
-use phpCalendar\component\Vjournal;
-use phpCalendar\component\Vcalendar;
+use ICalParser\component\Vjournal;
+use ICalParser\component\Vcalendar;
 
 class ComponentFactory {
 
@@ -20,15 +20,15 @@ class ComponentFactory {
 
     public static function buildComponent($component){
 
-            if(is_subclass_of($component,'\PhpCalendar\Component\Base\Vcomponent')){
+            if(is_subclass_of($component,'\ICalParser\Component\Base\Vcomponent')){
                 $reflection = new \ReflectionClass($component);
                 $className = $reflection->getName();
             }else{
-                $className = "phpCalendar\\Component\\".ucfirst(strtolower($component));
+                $className = "ICalParser\\Component\\".ucfirst(strtolower($component));
                 $component = new $className;
             }
 
-            $component->setAttributes(\phpCalendar\Config::getConfig());
+            $component->setAttributes(\ICalParser\Config::getConfig());
 
             return new $className();
     }

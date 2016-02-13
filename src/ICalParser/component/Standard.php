@@ -6,9 +6,9 @@
  * Time: 9:41 PM
  */
 
-namespace PhpCalendar\Component;
+namespace ICalParser\Component;
 
-use PhpCalendar\Component\Base\Vcomponent;
+use ICalParser\Component\Base\Vcomponent;
 
 class Standard extends Vcomponent{
 

@@ -2,7 +2,7 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src/php-calendar" isTestSource="false" packagePrefix="phpCalendar" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ICalParser" isTestSource="false" packagePrefix="phpCalendar" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -10,10 +10,10 @@
     <orderEntry type="module-library">
       <library name="PHARS">
         <CLASSES>
-          <root url="phar://$MODULE_DIR$/composer.phar/" />
+          <root url="phar://$MODULE_DIR$/composer.phar" />
         </CLASSES>
         <SOURCES>
-          <root url="phar://$MODULE_DIR$/composer.phar/" />
+          <root url="phar://$MODULE_DIR$/composer.phar" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -29,3 +29,4 @@
     </orderEntry>
   </component>
 </module>
+

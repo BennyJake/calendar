@@ -1,5 +1,5 @@
 {
-  "name": "vendor_name/package_name",
+  "name": "BennyJake/iCalParser",
   "description": "description_text",
   "minimum-stability": "stable",
   "license": "proprietary",
@@ -10,6 +10,6 @@
     }
   ],
   "autoload": {
-    "psr-0": {"PhpCalendar": "src/"}
+    "psr-0": {"ICalParser": "src/"}
   }
 }

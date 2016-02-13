@@ -6,8 +6,8 @@
  * Time: 6:30 PM
  */
 
-require_once('../src/php-calendar/Parser.php');
-require_once('../src/php-calendar/ComponentFactory.php');
+require_once('../src/ICalParser/Parser.php');
+require_once('../src/ICalParser/ComponentFactory.php');
 
 $factory = new \phpCalendar\ComponentFactory();
 $vcalendar = $factory->buildComponent('VCALENDAR');

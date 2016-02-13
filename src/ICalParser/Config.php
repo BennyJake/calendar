@@ -6,13 +6,13 @@
  * Time: 10:33 PM
  */
 
-namespace phpCalendar;
+namespace ICalParser;
 
 
 class Config
 {
     private static $config = array(
-        'DAYLIGHT' => array(
+        'ICalParser\Component\Daylight' => array(
             'COMMENT' => array(
                 'required' => FALSE,
                 'limit' => 0,
@@ -54,7 +54,7 @@ class Config
                 'value' => array()
             ),
         ),
-        'STANDARD' => array(
+        'ICalParser\Component\Standard' => array(
             'COMMENT' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
             'DTSTART' => array(
@@ -72,7 +72,7 @@ class Config
             'XPROP' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
         ),
-        'VALARM' => array(
+        'ICalParser\Component\Valarm' => array(
             'ACTION' => array(
                 'required' => TRUE, 'limit' => 1, 'value' => ''),
             'BEGIN' => array(
@@ -88,7 +88,7 @@ class Config
             'XPROP' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
         ),
-        'VCALENDAR' => array(
+        'ICalParser\Component\Vcalendar' => array(
             'BEGIN' => array(
                 'required' => TRUE, 'limit' => 1, 'value' => 'VCALENDAR'),
             'CALSCALE' => array(
@@ -104,7 +104,7 @@ class Config
             'XPROP' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
         ),
-        'VEVENT' => array(
+        'ICalParser\Component\Vevent' => array(
             'ATTACH' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
             'ATTENDEE' => array(
@@ -174,7 +174,7 @@ class Config
             'XPROP' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
         ),
-        'VFREEBUSY' => array(
+        'ICalParser\Component\Vfreebusy' => array(
             'ATTENDEE' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
             'BEGIN' => array(
@@ -210,7 +210,7 @@ class Config
             'XPROP' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
         ),
-        'VJOURNAL' => array(
+        'ICalParser\Component\Vjournal' => array(
             'ATTACH' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
             'ATTENDEE' => array(
@@ -266,7 +266,7 @@ class Config
             'XPROP' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
         ),
-        'VTIMEZONE' => array(
+        'ICalParser\Component\Vtimezone' => array(
             'BEGIN' => array(
                 'required' => TRUE, 'limit' => 1, 'value' => 'VTIMEZONE'),
             'END' => array(
@@ -278,7 +278,7 @@ class Config
             'TZURL' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
         ),
-        'VTODO' => array(
+        'ICalParser\Component\Vtodo' => array(
             'ATTACH' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
             'ATTENDEE' => array(
