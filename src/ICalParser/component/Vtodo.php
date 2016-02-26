@@ -6,10 +6,11 @@
  * Time: 5:54 PM
  */
 
-namespace ICalParser\component;
+namespace ICalParser\Component;
 
-require_once 'Base/Vcomponent.php';
+class Vtodo extends \ICalParser\Component\Base\Vcomponent{
 
-class Vtodo extends Vcomponent{
-
+    public function __construct(){
+        parent::__construct();
+    }
 } 

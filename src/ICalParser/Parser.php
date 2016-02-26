@@ -16,14 +16,19 @@ class Parser
 
     public function parse($content)
     {
-
         if (is_file(realpath($content))) {
             if ($fh = fopen($content, "r")) {
-                \ICalParser\Factory\ProcessorFactory::processBegin($fh);
+
+                //TODO: Abstract out the list of VCalendars to a MasterContainer (that also extends a VComponent
+                $masterContainer = \ICalParser\Factory\ProcessorFactory::processBegin($fh);
                 fclose($fh);
+
+                return $masterContainer;
             }
         } else {
             echo 'No file detected...';
         }
+
+        return FALSE;
     }
 }

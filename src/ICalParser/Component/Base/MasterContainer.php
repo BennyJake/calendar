@@ -9,7 +9,7 @@
 namespace phpCalendar\Component\Base;
 
 
-class MasterContainer
+class MasterContainer extends \ICalParser\Component\Base\Vcomponent
 {
 
 }

@@ -6,8 +6,11 @@
  * Time: 5:55 PM
  */
 
-namespace ICalParser\component;
+namespace ICalParser\Component;
 
-class Vfreebusy extends Vcomponent{
+class Vfreebusy extends \ICalParser\Component\Base\Vcomponent{
 
+    public function __construct(){
+        parent::__construct();
+    }
 } 

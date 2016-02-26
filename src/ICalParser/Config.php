@@ -13,6 +13,11 @@ class Config
 {
     private static $config = array(
         'ICalParser\Component\Daylight' => array(
+            'BEGIN' => array(
+                'required' => TRUE,
+                'limit' => 1,
+                'value' => 'DAYLIGHT'
+            ),
             'COMMENT' => array(
                 'required' => FALSE,
                 'limit' => 0,
@@ -52,6 +57,11 @@ class Config
                 'required' => FALSE,
                 'limit' => 0,
                 'value' => array()
+            ),
+            'END' => array(
+                'required' => TRUE,
+                'limit' => 1,
+                'value' => 'DAYLIGHT'
             ),
         ),
         'ICalParser\Component\Standard' => array(
@@ -71,6 +81,8 @@ class Config
                 'required' => TRUE, 'limit' => 1, 'value' => ''),
             'XPROP' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
+            'END' => array(
+                'required' => TRUE, 'limit' => 1, 'value' => 'DAYLIGHT'),
         ),
         'ICalParser\Component\Valarm' => array(
             'ACTION' => array(
@@ -103,6 +115,16 @@ class Config
                 'required' => TRUE, 'limit' => 1, 'value' => '2.0'),
             'XPROP' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
+            'VEVENT' => array(
+                'required' => FALSE, 'limit' => 0, 'value' => array()),
+            'VTODO' => array(
+                'required' => FALSE, 'limit' => 0, 'value' => array()),
+            'VJOURNAL' => array(
+                'required' => FALSE, 'limit' => 0, 'value' => array()),
+            'VFREEBUSY' => array(
+                'required' => FALSE, 'limit' => 0, 'value' => array()),
+            'VTIMEZONE' => array(
+                'required' => FALSE, 'limit' => 0, 'value' => array()),
         ),
         'ICalParser\Component\Vevent' => array(
             'ATTACH' => array(

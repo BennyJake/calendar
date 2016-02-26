@@ -6,10 +6,11 @@
  * Time: 5:53 PM
  */
 
-namespace ICalParser\component;
+namespace ICalParser\Component;
 
-require_once 'Base/Vcomponent.php';
+class Vevent extends \ICalParser\Component\Base\Vcomponent{
 
-class Vevent extends Vcomponent{
-
+    public function __construct(){
+        parent::__construct();
+    }
 } 

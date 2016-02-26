@@ -6,11 +6,11 @@
  * Time: 1:21 PM
  */
 
-namespace ICalParser\component;
+namespace ICalParser\Component;
 
-require_once 'Base/Vcomponent.php';
+class Vtimezone extends \ICalParser\Component\Base\Vcomponent{
 
-class Vtimezone extends Vcomponent{
-
-
+    public function __construct(){
+        parent::__construct();
+    }
 } 

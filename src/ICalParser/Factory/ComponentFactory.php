@@ -14,9 +14,7 @@ use ICalParser\component\Vcalendar;
 
 class ComponentFactory {
 
-    public function __construct(){
-
-    }
+    public function __construct(){}
 
     public static function buildComponent($component){
 
@@ -25,11 +23,11 @@ class ComponentFactory {
                 $className = $reflection->getName();
             }else{
                 $className = "ICalParser\\Component\\".ucfirst(strtolower($component));
-                $component = new $className;
+                $component = new $className();
             }
 
             $component->setAttributes(\ICalParser\Config::getConfig());
 
-            return new $className();
+            return $component;
     }
 } 

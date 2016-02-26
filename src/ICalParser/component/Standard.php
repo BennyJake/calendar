@@ -8,9 +8,7 @@
 
 namespace ICalParser\Component;
 
-use ICalParser\Component\Base\Vcomponent;
-
-class Standard extends Vcomponent{
+class Standard extends \ICalParser\Component\Base\Vcomponent{
 
     public function __construct(){
         parent::__construct();

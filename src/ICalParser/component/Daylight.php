@@ -6,22 +6,11 @@
  * Time: 9:41 PM
  */
 
-namespace ICalParser\component;
+namespace ICalParser\Component;
 
-require_once 'Base/Vcomponent.php';
-
-class Daylight extends Vcomponent{
-
-
+class Daylight extends \ICalParser\Component\Base\Vcomponent{
 
     public function __construct(){
-        $this->attributes = array_replace_recursive($this->attributes, array(
-            'BEGIN' => array(
-                'required' => TRUE, 'limit' => 1, 'value' => 'DAYLIGHT'),
-            'END' => array(
-                'required' => TRUE, 'limit' => 1, 'value' => 'DAYLIGHT'),
-        ));
-
-        parent::__construct($settings = array());
+        parent::__construct();
     }
 }

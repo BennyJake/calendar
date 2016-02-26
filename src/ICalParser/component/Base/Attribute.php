@@ -15,6 +15,7 @@ class Attribute
     private $required;
     private $value;
     private $limit;
+    private $order;
 
     /**
      * @return mixed
@@ -61,7 +62,11 @@ class Attribute
      */
     public function setValue($value)
     {
-        $this->value = $value;
+        if($this->getLimit() == 0){
+            $this->value[] = $value;
+        }else{
+            $this->value = $value;
+        }
     }
 
     /**
@@ -78,5 +83,21 @@ class Attribute
     public function setLimit($limit)
     {
         $this->limit = $limit;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param mixed $order
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
     }
 }

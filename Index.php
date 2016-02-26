@@ -8,4 +8,5 @@
 require __DIR__ . '/vendor/autoload.php';
 
 $parser = new \ICalParser\Parser();
-$parser->parse('data/basic.ics');
+$parsedData = $parser->parse('data/basic.ics');
+var_dump($parsedData);
