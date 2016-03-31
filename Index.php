@@ -8,5 +8,6 @@
 require __DIR__ . '/vendor/autoload.php';
 
 $parser = new \ICalParser\Parser();
-$parsedData = $parser->parse('data/basic.ics');
-var_dump($parsedData);
+$vCalendars = $parser->parse('data/basic.ics');
+//var_dump($vCalendars);
+echo $vCalendars[0];

@@ -60,12 +60,12 @@ class Attribute
     /**
      * @param mixed $value
      */
-    public function setValue($value)
+    public function setValue($passedValue)
     {
-        if($this->getLimit() == 0){
-            $this->value[] = $value;
-        }else{
-            $this->value = $value;
+        if ($this->getLimit() === 0) {
+            $this->value[] = $passedValue;
+        } else {
+            $this->value = $passedValue;
         }
     }
 

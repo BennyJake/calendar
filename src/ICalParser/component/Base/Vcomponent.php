@@ -17,10 +17,46 @@ class Vcomponent
 
     private $attributeCount;
 
+    //more for reference
+    private $currentAttributeName;
+    private $currentAttributeValue;
+
     public function __construct()
     {
         $this->attributes = array();
         $this->attributeCount = 0;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentAttributeName()
+    {
+        return $this->currentAttributeName;
+    }
+
+    /**
+     * @param mixed $currentAttributeName
+     */
+    public function setCurrentAttributeName($currentAttributeName)
+    {
+        $this->currentAttributeName = $currentAttributeName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentAttributeValue()
+    {
+        return $this->currentAttributeValue;
+    }
+
+    /**
+     * @param mixed $currentAttributeValue
+     */
+    public function setCurrentAttributeValue($currentAttributeValue)
+    {
+        $this->currentAttributeValue = $currentAttributeValue;
     }
 
     /**
@@ -68,18 +104,19 @@ class Vcomponent
     {
         if (isset($config[get_class($this)])) {
             foreach ($config[get_class($this)] as $attributeName => $attributeProperties) {
-                $this->attributes[] = \ICalParser\Factory\AttributeFactory::createAttribute($attributeName,$attributeProperties);
+                $this->attributes[$attributeName] = \ICalParser\Factory\AttributeFactory::createAttribute($attributeName, $attributeProperties);
             }
         } else {
             $parseFault = new \ICalParser\Debug\Fault\ParseFault();
-            $parseFault->setMessage('Config Key not found for: '.get_class($this));
+            $parseFault->setMessage('Config Key not found for: ' . get_class($this));
             return $parseFault;
         }
 
         return TRUE;
     }
 
-    public function updateAttributes(array $newAttributes){
+    public function updateAttributes(array $newAttributes)
+    {
         $this->attributes = $newAttributes;
     }
 
@@ -90,56 +127,60 @@ class Vcomponent
 
     public function getAttributeByName($name)
     {
-        foreach ($this->getAttributes() as $attribute) {
-            if ($attribute->getName() === $name) {
-                return $attribute;
-                break;
-            }
+        if (isset($this->getAttributes()[$name])) {
+            return $this->getAttributes()[$name];
+        } else {
+            $soapFault = new \ICalParser\Debug\Fault\ParseFault();
+            $soapFault->setMessage('Attribute Name not found: ' . $name);
+            return $soapFault;
         }
-
-        $soapFault = new \ICalParser\Debug\Fault\ParseFault();
-        $soapFault->setMessage('Attribute Name not found: '.$name);
-        return $soapFault;
     }
 
-    public function setAttributeValueByName($name,$value){
+    public function setAttributeValueByName($name, $value)
+    {
+        $result = $this->getAttributeByName($name);
 
-        foreach ($this->getAttributes() as $attribute) {
-            if ($attribute->getName() === $name) {
-                $attribute->setValue($value);
-                return $attribute;
-                break;
-            }
+        // we found a matching attribute based on the name
+        if ($result instanceof \ICalParser\Component\Base\Attribute) {
+            $result->setValue($value);
+            return $result;
+        } else {
+            $parseFault = new \ICalParser\Debug\Fault\ParseFault();
+            $parseFault->setMessage('Config key \''.$name.'\' not found for: ' . get_class($this));
+            return $parseFault;
         }
-
-        $parseFault = new \ICalParser\Debug\Fault\ParseFault();
-        $parseFault->setMessage('Config Key not found for: '.get_class($this));
-        return $parseFault;
     }
 
-    public function setAttributeOrderByName($name,$order){
+    /**
+     * @param string $name
+     * @param int $order
+     * @return \ICalParser\Debug\Fault\ParseFault
+     */
+    public function setAttributeOrderByName($name, $order)
+    {
 
-        foreach ($this->getAttributes() as $attribute) {
-            if ($attribute->getName() === $name) {
-                $attribute->setOrder($order);
-                return $attribute;
-                break;
-            }
+        $result = $this->getAttributeByName($name);
+
+        if ($result instanceof \ICalParser\Component\Base\Attribute) {
+            $result->setOrder($order);
+            return $result;
+        } else {
+            $parseFault = new \ICalParser\Debug\Fault\ParseFault();
+            $parseFault->setMessage('Config Key not found for: ' . get_class($this));
+            return $parseFault;
         }
-
-        $parseFault = new \ICalParser\Debug\Fault\ParseFault();
-        $parseFault->setMessage('Config Key not found for: '.get_class($this));
-        return $parseFault;
     }
 
-    public function addVcomponentAsAttribute(\ICalParser\Component\Base\Vcomponent $vcomponent){
+    public function addVcomponentAsAttribute(\ICalParser\Component\Base\Vcomponent $vcomponent)
+    {
         $this->attributes[] = $vcomponent;
     }
 
-    public function removeUnusedAttributes(){
+    public function removeUnusedAttributes()
+    {
 
-        foreach($this->getAttributes() as $key => $attribute){
-            if($attribute instanceof \ICalParser\Component\Base\Attribute) {
+        foreach ($this->getAttributes() as $key => $attribute) {
+            if ($attribute instanceof \ICalParser\Component\Base\Attribute) {
                 if (!is_numeric($attribute->getOrder())) {
                     unset($this->attributes[$key]);
                 }
@@ -148,11 +189,12 @@ class Vcomponent
     }
 
     //removes unused attributes and sorts them by their order value
-    public function organizeAttributes(){
+    public function organizeAttributes()
+    {
 
         $newAttributesArray = array();
 
-        foreach($this->getAttributes() as $attribute){
+        foreach ($this->getAttributes() as $attribute) {
             if (is_numeric($attribute->getOrder())) {
                 $newAttributesArray[$attribute->getOrder()] = $attribute;
             }
@@ -163,66 +205,99 @@ class Vcomponent
         $this->updateAttributes($newAttributesArray);
     }
 
-    public function process($fh){
+    public function process($fh, &$lineNumber, $firstComponentName, $firstComponentValue)
+    {
+
+        $this->setAttributeValueByName($firstComponentName, $firstComponentValue);
+        $this->setAttributeOrderByName($firstComponentName, $this->getIncreaseAttributeOrderCounter());
 
         while (!feof($fh)) {
 
             $line = fgets($fh);
+            $lineNumber++;
 
-            //var_dump($line);
+            $possibleName = strtoupper(explode(':',$line)[0]);
+            $attribute = $this->getAttributeByName($possibleName);
 
-            foreach ($this->getAttributes() as $attribute) {
+            //if the attribute matches the beginning part of the line being parsed
+            if ($attribute instanceof \ICalParser\Component\Base\Attribute) {
 
-                if ($attribute instanceof \ICalParser\Component\Base\Attribute) {
+                $attributeName = strtoupper($attribute->getName());
+                $attributeValue = strtoupper(trim(substr($line, strlen($attribute->getName() . ':'), strlen($line))));
 
-                    //var_dump('HERE?!');
-                    //var_dump(strtoupper($line));
-                    //var_dump($attribute);
-                    //var_dump($attribute->getName());
+                $this->setCurrentAttributeName($attributeName);
+                $this->setCurrentAttributeValue($attributeValue);
+
+                //if we're going to nest a child Component
+                if ($attributeName . ':' == 'BEGIN:') {
+
+                    //var_dump($attributeName);
+                    //var_dump($attributeValue);
                     //echo '<hr/>';
 
-                    //if the attribute matches the beginning part of the line being parsed
-                    if (strpos(strtoupper($line), strtoupper($attribute->getName() . ':')) === 0) {
+                    $componentObject = \ICalParser\Factory\ComponentFactory::buildComponent(strtoupper($attributeValue));
+                    $componentObject->process($fh, $lineNumber, $attributeName, $attributeValue);
+                    $componentObject->setOrder($this->getIncreaseAttributeOrderCounter());
+                    $this->addVcomponentAsAttribute($componentObject);
 
-                        $componentName = strtoupper($attribute->getName());
-                        $componentValue = strtoupper(trim(substr($line, strlen($attribute->getName() . ':'), strlen($line))));
+                    //if we're ending the current Component, return back to the parent to continue parsing
+                } elseif ($attributeName . ':' == 'END:') {
+                    //var_dump($attributeName);
+                    //var_dump($attributeValue);
+                    //echo '<hr/>';
 
-                        //if we're going to nest a child Component
-                        if ($componentName. ':' == 'BEGIN:') {
+                    $this->setAttributeValueByName($attributeName, $attributeValue);
+                    $this->setAttributeOrderByName($attributeName, $this->getIncreaseAttributeOrderCounter());
 
-                            //var_dump($componentName);
-                            //var_dump($componentValue);
-                            //echo '<hr/>';
+                    //$this->removeUnusedAttributes();
+                    $this->organizeAttributes();
+                    return TRUE;
 
-                            $componentObject = \ICalParser\Factory\ComponentFactory::buildComponent(strtoupper($componentValue));
-                            $componentObject->process($fh);
-                            $componentObject->setOrder($this->getIncreaseAttributeOrderCounter());
-                            $this->addVcomponentAsAttribute($componentObject);
+                } else {
 
-                            //if we're ending the current Component, return back to the parent to continue parsing
-                        } elseif ($componentName . ':' == 'END:') {
-                            //var_dump($componentName);
-                            //var_dump($componentValue);
-                            //echo '<hr/>';
-
-                            //$this->removeUnusedAttributes();
-                            $this->organizeAttributes();
-                            return TRUE;
-
-                        } else {
-
-                            $this->setAttributeValueByName($componentName, $componentValue);
-                            $this->setAttributeOrderByName($componentName, $this->getIncreaseAttributeOrderCounter());
-                        }
-
-                    }
+                    $this->setAttributeValueByName($attributeName, $attributeValue);
+                    $this->setAttributeOrderByName($attributeName, $this->getIncreaseAttributeOrderCounter());
+                }
+            }
+            // if the line doesn't begin with an attribute that belongs to this component, then it must belong to the
+            // attribute from the previous line (a multi-line attribute)
+            else{
+                if(isset($this->currentAttributeName) && isset($this->currentAttributeValue)){
+                    $this->currentAttributeValue .= "\n".$line;
+                    $this->setAttributeValueByName($this->getCurrentAttributeName(), $this->getCurrentAttributeValue());
                 }
             }
         }
 
         //an END line wasn't found, return FALSE
         $parseFault = new \ICalParser\Debug\Fault\ParseFault();
-        $parseFault->setMessage('Config array key not found for: '.get_class($this));
+        $parseFault->setMessage('Config array key not found for: ' . get_class($this));
         return $parseFault;
+    }
+
+    public function __toString()
+    {
+
+        $componentString = '';
+
+        foreach ($this->getAttributes() as $attribute) {
+
+            if ($attribute instanceof \ICalParser\Component\Base\Attribute) {
+
+                if (is_array($attribute->getValue())) {
+                    foreach ($attribute->getValue() as $singleValue) {
+                        $componentString .= $attribute->getName() . ':';
+                        $componentString .= $singleValue . "\r\n";
+                    }
+                } else {
+                    $componentString .= $attribute->getName() . ':';
+                    $componentString .= $attribute->getValue() . "\r\n";
+                }
+            } elseif ($attribute instanceof \ICalParser\Component\Base\Vcomponent) {
+                $componentString .= $attribute->__toString();
+            }
+        }
+
+        return $componentString;
     }
 } 

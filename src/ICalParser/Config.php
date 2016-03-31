@@ -24,6 +24,8 @@ class Config
                 'value' => array()
             ),
             'DTSTART' => array(
+                'required' => FALSE, 'limit' => 1, 'value' => ''),
+            'DTSTART;VALUE=DATE' => array(
                 'required' => TRUE,
                 'limit' => 1,
                 'value' => ''
@@ -68,6 +70,8 @@ class Config
             'COMMENT' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
             'DTSTART' => array(
+                'required' => FALSE, 'limit' => 1, 'value' => ''),
+            'DTSTART;VALUE=DATE' => array(
                 'required' => TRUE, 'limit' => 1, 'value' => ''),
             'RDATE' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
@@ -125,6 +129,10 @@ class Config
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
             'VTIMEZONE' => array(
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
+            'X-WR-CALNAME' => array(
+                'required' => FALSE, 'limit' => 0, 'value' => array()),
+            'X-WR-TIMEZONE' => array(
+                'required' => FALSE, 'limit' => 0, 'value' => array()),
         ),
         'ICalParser\Component\Vevent' => array(
             'ATTACH' => array(
@@ -146,10 +154,14 @@ class Config
             'DESCRIPTION' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'DTEND' => array(
+                'required' => FALSE, 'limit' => 1, 'value' => ''),
+            'DTEND;VALUE=DATE' => array(
                 'required' => TRUE, 'limit' => 1, 'value' => ''),
             'DTSTAMP' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'DTSTART' => array(
+                'required' => FALSE, 'limit' => 1, 'value' => ''),
+            'DTSTART;VALUE=DATE' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'DURATION' => array(
                 'required' => TRUE, 'limit' => 1, 'value' => ''),
@@ -161,7 +173,7 @@ class Config
                 'required' => FALSE, 'limit' => 0, 'value' => array()),
             'GEO' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
-            'LASTMOD' => array(
+            'LAST-MODIFIED' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'LOCATION' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
@@ -189,7 +201,7 @@ class Config
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'TRANSP' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
-            'ULD' => array(
+            'UID' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'URL' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
@@ -211,9 +223,13 @@ class Config
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'DTEND' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
+            'DTEND;VALUE=DATE' => array(
+                'required' => FALSE, 'limit' => 1, 'value' => ''),
             'DTSTAMP' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'DTSTART' => array(
+                'required' => FALSE, 'limit' => 1, 'value' => ''),
+            'DTSTART;VALUE=DATE' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'DURATION' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
@@ -254,6 +270,8 @@ class Config
             'DTSTAMP' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'DTSTART' => array(
+                'required' => FALSE, 'limit' => 1, 'value' => ''),
+            'DTSTART;VALUE=DATE' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'END' => array(
                 'required' => TRUE, 'limit' => 1, 'value' => 'VJOURNAL'),
@@ -299,6 +317,8 @@ class Config
                 'required' => TRUE, 'limit' => 1, 'value' => ''),
             'TZURL' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
+            'X-LIC-LOCATION' => array(
+                'required' => FALSE, 'limit' => 1, 'value' => ''),
         ),
         'ICalParser\Component\Vtodo' => array(
             'ATTACH' => array(
@@ -324,6 +344,8 @@ class Config
             'DTSTAMP' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'DTSTART' => array(
+                'required' => FALSE, 'limit' => 1, 'value' => ''),
+            'DTSTART;VALUE=DATE' => array(
                 'required' => FALSE, 'limit' => 1, 'value' => ''),
             'DUE' => array(
                 'required' => TRUE, 'limit' => 1, 'value' => ''),

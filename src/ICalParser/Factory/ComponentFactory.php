@@ -19,8 +19,7 @@ class ComponentFactory {
     public static function buildComponent($component){
 
             if(is_subclass_of($component,'\ICalParser\Component\Base\Vcomponent')){
-                $reflection = new \ReflectionClass($component);
-                $className = $reflection->getName();
+
             }else{
                 $className = "ICalParser\\Component\\".ucfirst(strtolower($component));
                 $component = new $className();

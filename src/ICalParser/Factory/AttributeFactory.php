@@ -19,7 +19,7 @@ class AttributeFactory
 
         foreach($attributeProperties as $attributeVariableName => $attributeVariableValue){
 
-            if(property_exists($attributeObject,strtolower($attributeVariableName))){
+            if(property_exists($attributeObject,strtolower($attributeVariableName)) && !empty($attributeVariableValue)){
                 $attributeObject->{'set'.ucfirst(strtolower($attributeVariableName))}($attributeVariableValue);
             }
         }
